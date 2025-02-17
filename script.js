@@ -89,33 +89,17 @@ class Quiz {
     
         // Форматируем данные в JSON
         const dataToSend = JSON.stringify({ resultsToSend });
-    
-        // Отправляем данные в бот
-        Telegram.WebApp.sendData(dataToSend);
 
         document.getElementById('finish-page').style.display = 'none';
         document.getElementById('results-page').style.display = 'block';	
 	this.displayResultsChart();
 
-	document.getElementById("share-whatsapp").addEventListener("click", () => {
-	    const url = "https://t.me/investHT_bot";
-	    const message = `Мой результат в квизе ${this.correctAnswersCount} из 7! Проверь тоже свои силы в @investHT_bot.`;
-	    const whatsappLink = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
-	    window.open(whatsappLink, "_blank", "width=auto", "height=auto");
-	});
+	document.getElementById("share-whatsapp").addEventListener("click", () => shareOnPlatform.call(this, 'whatsapp'));
+	document.getElementById("share-telegram").addEventListener("click", () => shareOnPlatform.call(this, 'telegram'));
+	document.getElementById("share-vk").addEventListener("click", () => shareOnPlatform.call(this, 'vk'));	
 
-	document.getElementById("share-telegram").addEventListener("click", () => {
-	    const url = "https://t.me/investHT_bot";
-	    const message = `Мой результат в квизе ${this.correctAnswersCount} из 7! Проверь тоже свои силы в @investHT_bot.`;
-	    const telegramLink = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(message)}`;
-	    window.open(telegramLink, "_blank", "width=auto", "height=auto");
-	});
-
-	document.getElementById("share-vk").addEventListener("click", () => {
-	    const url = "https://t.me/investHT_bot";
-	    const VKlink = `https://vk.com/share.php?url=${encodeURIComponent(url)}&title=Мой результат в квизе ${this.correctAnswersCount} из 7! Проверь тоже свои силы в телеграм боте @investHT_bot.`;
-	    window.open(VKlink, "_blank", "width=auto,height=auto");
-	});	
+	// Отправляем данные в бот
+        Telegram.WebApp.sendData(dataToSend);
 }
 	
     displayResultsChart() {
@@ -160,6 +144,30 @@ class Quiz {
 	
 	document.getElementById('resultsChart').style.display = 'block';
     }
+
+    shareOnPlatform(platform) {
+	const url = "https://t.me/investHT_bot";
+	const message = `Мой результат в квизе ${this.correctAnswersCount} из 7! Проверь тоже свои силы в @investHT_bot.`;
+	let shareLink;
+	
+	switch (platform) {
+	case 'whatsapp':
+	    shareLink = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+	    break;
+	case 'telegram':
+	    shareLink = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(message)}`;
+	    break;
+	case 'vk':
+	    shareLink = `https://vk.com/share.php?url=${encodeURIComponent(url)}&title=${encodeURIComponent(message)}`;
+	    break;
+	default:
+	    console.error('Unsupported platform');
+	    return;
+	}
+	
+	window.open(shareLink, "_blank", "width=auto,height=auto");
+    }
+
 }
 
 // Initialize the quiz when the page loads
