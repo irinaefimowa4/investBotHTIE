@@ -94,9 +94,9 @@ class Quiz {
         document.getElementById('results-page').style.display = 'block';	
 	this.displayResultsChart();
 
-	document.getElementById("share-whatsapp").addEventListener("click", () => shareOnPlatform.call(this, 'whatsapp'));
-	document.getElementById("share-telegram").addEventListener("click", () => shareOnPlatform.call(this, 'telegram'));
-	document.getElementById("share-vk").addEventListener("click", () => shareOnPlatform.call(this, 'vk'));	
+	document.getElementById("share-whatsapp").addEventListener("click", () => this.shareOnPlatform.call(this, 'whatsapp'));
+	document.getElementById("share-telegram").addEventListener("click", () => this.shareOnPlatform.call(this, 'telegram'));
+	document.getElementById("share-vk").addEventListener("click", () => this.shareOnPlatform.call(this, 'vk'));	
 
 	// Отправляем данные в бот
         Telegram.WebApp.sendData(dataToSend);
