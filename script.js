@@ -88,11 +88,11 @@ class Quiz {
         }).join('\n');
     
         // Форматируем данные в JSON
-        //const dataToSend = JSON.stringify({ resultsToSend });
-	const dataToSend = JSON.stringify({
-	    resultsToSend: resultsToSend,
+        const dataToSendFromStr = JSON.stringify({ resultsToSend });
+	const dataToSend = {
+	    resultsToSend: dataToSendFromStr,
 	    close_button: false
-	});
+	};
 
         document.getElementById('finish-page').style.display = 'none';
         document.getElementById('results-page').style.display = 'block';	
