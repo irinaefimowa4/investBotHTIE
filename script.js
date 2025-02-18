@@ -80,18 +80,14 @@ class Quiz {
         document.getElementById('quiz').classList.remove('active');
         document.getElementById('quiz').style.display = 'none';
         document.getElementById('finish-page').style.display = 'block';	
-    }
 
-    sendResults() {
         const resultsToSend = this.userAnswers.map((answer, index) => {
             return `Вопрос ${index + 1}: Выбран "${answer.selected}", дефолтный ответ: "${answer.correct}"`;
         }).join('\n');
     
         // Форматируем данные в JSON
         const dataToSend = JSON.stringify({ resultsToSend });
-
-        document.getElementById('finish-page').style.display = 'none';
-        document.getElementById('results-page').style.display = 'block';	
+	
 	this.displayResultsChart();
 
 	document.getElementById("share-whatsapp").addEventListener("click", () => this.shareOnPlatform.call(this, 'whatsapp'));
@@ -100,7 +96,7 @@ class Quiz {
 
 	// Отправляем данные в бот
         Telegram.WebApp.sendData(dataToSend);
-}
+    }
 	
     displayResultsChart() {
 	const ctx = document.getElementById('resultsChart').getContext('2d');
