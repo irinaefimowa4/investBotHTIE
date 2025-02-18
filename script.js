@@ -89,10 +89,10 @@ class Quiz {
     
         // Форматируем данные в JSON
         //const dataToSendFromStr = JSON.stringify({ resultsToSend });
-	const dataToSend = JSON.stringify({
-	    resultsToSend: resultsToSend,
-	    close_button: true
-	});
+	const dataToSend = {
+	    resultsToSend: JSON.stringify(resultsToSend),
+	    close_button: false
+	};
 
         document.getElementById('finish-page').style.display = 'none';
         document.getElementById('results-page').style.display = 'block';	
