@@ -105,10 +105,10 @@ class Quiz {
 
 	// Отправляем данные в бот
 	if (Telegram.WebApp.isExpanded) {
-    	    Telegram.WebApp.sendData(dataToSendString);
+    	    Telegram.WebApp.sendData(dataToSendString, { disable_auto_closing: true });
 	} else {
     	    Telegram.WebApp.expand(); // Разворачиваем, если не развернуто
-	    Telegram.WebApp.sendData(dataToSendString);
+	    Telegram.WebApp.sendData(dataToSendString, { disable_auto_closing: true });
 	}
     }
 	
