@@ -88,9 +88,9 @@ class Quiz {
         }).join('\n');
     
         // Форматируем данные в JSON
-        const dataToSendFromStr = JSON.stringify({ resultsToSend });
+        //const dataToSendFromStr = JSON.stringify({ resultsToSend });
 	const dataToSend = {
-	    resultsToSend: dataToSendFromStr,
+	    resultsToSend: resultsToSend,
 	    close_button: false
 	};
 
