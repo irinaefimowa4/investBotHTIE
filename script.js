@@ -14,7 +14,6 @@ class Quiz {
     async init() {
         // Welcome page
         document.getElementById('start-button').addEventListener('click', () => this.startQuiz());
-	document.getElementById('finish-button').addEventListener('click', () => this.sendResults());
 
         // Загрузка вопросов из JSON-файла
         await this.loadQuestions();
