@@ -88,9 +88,8 @@ class Quiz {
         }).join('\n');
     
         // Форматируем данные в JSON
-        //const dataToSendFromStr = JSON.stringify({ resultsToSend });
 	const dataToSend = {
-	    resultsToSend: JSON.stringify(resultsToSend),
+	    resultsToSend: resultsToSend,
 	    close_button: false
 	};
 
@@ -102,12 +101,14 @@ class Quiz {
 	document.getElementById("share-telegram").addEventListener("click", () => this.shareOnPlatform.call(this, 'telegram'));
 	document.getElementById("share-vk").addEventListener("click", () => this.shareOnPlatform.call(this, 'vk'));	
 
+	 const dataToSendString = JSON.stringify(dataToSend);
+
 	// Отправляем данные в бот
 	if (Telegram.WebApp.isExpanded) {
-    	    Telegram.WebApp.sendData(dataToSend);
+    	    Telegram.WebApp.sendData(dataToSendString);
 	} else {
     	    Telegram.WebApp.expand(); // Разворачиваем, если не развернуто
-	    Telegram.WebApp.sendData(dataToSend);
+	    Telegram.WebApp.sendData(dataToSendString);
 	}
     }
 	
