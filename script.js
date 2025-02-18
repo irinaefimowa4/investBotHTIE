@@ -91,7 +91,7 @@ class Quiz {
         //const dataToSendFromStr = JSON.stringify({ resultsToSend });
 	const dataToSend = {
 	    resultsToSend: resultsToSend,
-	    close_button: false
+	    close_button: true
 	};
 
         document.getElementById('finish-page').style.display = 'none';
@@ -156,7 +156,7 @@ class Quiz {
 
     shareOnPlatform(platform) {
 	const url = "https://t.me/investHT_bot";
-	const message = `Мой результат в квизе ${this.correctAnswersCount} из 7! Проверь тоже свои силы в @investHT_bot.`;
+	const message = `Мой результат в квизе ${this.correctAnswersCount} из ${this.questions.length}! Проверь тоже свои силы в @investHT_bot.`;
 	let shareLink;
 	
 	switch (platform) {
