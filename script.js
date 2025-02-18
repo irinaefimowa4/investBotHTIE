@@ -14,6 +14,7 @@ class Quiz {
     async init() {
         // Welcome page
         document.getElementById('start-button').addEventListener('click', () => this.startQuiz());
+	document.getElementById('finish-button').addEventListener('click', () => this.sendResults());
 
         // Загрузка вопросов из JSON-файла
         await this.loadQuestions();
@@ -79,14 +80,18 @@ class Quiz {
         document.getElementById('quiz').classList.remove('active');
         document.getElementById('quiz').style.display = 'none';
         document.getElementById('finish-page').style.display = 'block';	
+    }
 
+    sendResults() {
         const resultsToSend = this.userAnswers.map((answer, index) => {
             return `Вопрос ${index + 1}: Выбран "${answer.selected}", дефолтный ответ: "${answer.correct}"`;
         }).join('\n');
     
         // Форматируем данные в JSON
         const dataToSend = JSON.stringify({ resultsToSend });
-	
+
+        document.getElementById('finish-page').style.display = 'none';
+        document.getElementById('results-page').style.display = 'block';	
 	this.displayResultsChart();
 
 	document.getElementById("share-whatsapp").addEventListener("click", () => this.shareOnPlatform.call(this, 'whatsapp'));
@@ -94,7 +99,11 @@ class Quiz {
 	document.getElementById("share-vk").addEventListener("click", () => this.shareOnPlatform.call(this, 'vk'));	
 
 	// Отправляем данные в бот
-        Telegram.WebApp.sendData(dataToSend);
+	if (Telegram.WebApp.isExpanded) {
+    	    Telegram.WebApp.sendData(dataToSend);
+	} else {
+    	    Telegram.WebApp.expand(); // Разворачиваем, если не развернуто
+	}
     }
 	
     displayResultsChart() {
