@@ -103,6 +103,7 @@ class Quiz {
     	    Telegram.WebApp.sendData(dataToSend);
 	} else {
     	    Telegram.WebApp.expand(); // Разворачиваем, если не развернуто
+	    Telegram.WebApp.sendData(dataToSend);
 	}
     }
 	
